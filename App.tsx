@@ -28,3 +28,28 @@ export default function App() {
           },
         }
       );
+      setFact(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setFact('Failed to fetch fact.');
+    }
+    setLoading(false);
+  };
+
+  const handleDayChange = (input: string) => {
+    setDay(input);
+    const dayNumber = parseInt(input, 10);
+
+    if (isNaN(dayNumber) || dayNumber < 1 || dayNumber > 31) {
+      setError('Please enter a valid day between 1 and 31.');
+      setFact('');
+    } else {
+      setError(null);
+    }
+  };
+
+  useEffect(() => {
+    if (month && day && !error) {
+      fetchFact(month, day);
+    }
+  }, [month, day]);
