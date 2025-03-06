@@ -53,3 +53,46 @@ export default function App() {
       fetchFact(month, day);
     }
   }, [month, day]);
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Select a Date</Text>
+
+      <RNPickerSelect
+        onValueChange={(value) => setMonth(value)}
+        items={[
+          { label: 'January', value: '1' },
+          { label: 'February', value: '2' },
+          { label: 'March', value: '3' },
+          { label: 'April', value: '4' },
+          { label: 'May', value: '5' },
+          { label: 'June', value: '6' },
+          { label: 'July', value: '7' },
+          { label: 'August', value: '8' },
+          { label: 'September', value: '9' },
+          { label: 'October', value: '10' },
+          { label: 'November', value: '11' },
+          { label: 'December', value: '12' },
+        ]}
+        placeholder={{ label: 'Select a month...', value: null }}
+        style={pickerSelectStyles}
+      />
+
+      <TextInput
+        style={styles.input}
+        keyboardType="numeric"
+        placeholder="Enter Day (1-31)"
+        value={day}
+        onChangeText={handleDayChange}
+      />
+
+      {error && <Text style={styles.errorText}>{error}</Text>}
+
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <Text style={styles.fact}>{fact}</Text>
+      )}
+    </View>
+  );
+}
